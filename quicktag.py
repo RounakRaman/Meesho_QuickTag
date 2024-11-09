@@ -5,7 +5,7 @@ import os
 
 # Set up the model and processor
 model_id = "microsoft/Phi-3.5-vision-instruct"
-model = AutoModelForCausalLM.from_pretrained(model_id, device_map="cuda", trust_remote_code=True, torch_dtype="auto", _attn_implementation="eager")
+model = AutoModelForCausalLM.from_pretrained(model_id, device_map="cpu", trust_remote_code=True, torch_dtype="auto", _attn_implementation="eager")
 processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True, num_crops=8)
 
 # Define function for generating attributes
