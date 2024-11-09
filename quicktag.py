@@ -38,11 +38,11 @@ if uploaded_files:
     category = st.selectbox("Select Product Category", ["Men Tshirts", "Sarees", "Kurtis", "Women Tshirts", "Women Tops & Tunics"])
     entity_unit_map = {
         "Men Tshirts": {
-        "color": ["white", "default", "black", "multicolor", "unknown"],
-        "neck": ["round", "unknown", "polo"],
-        "pattern": ["solid", "printed", "unknown"],
-        "print_or_pattern_type": ["solid", "unknown", "typography", "default"],
-        "sleeve_length": ["short sleeves", "long sleeves", "unknown"],
+        "color": ["white", "default", "black", "multicolor"],
+        "neck": ["round","polo"],
+        "pattern": ["solid","printed"],
+        "print_or_pattern_type": ["solid","typography", "default"],
+        "sleeve_length": ["short sleeves", "long sleeves"],
     },
     "Sarees": {
         "blouse_pattern": ["same as saree", "default", "solid", "same as border", "unknown"],
