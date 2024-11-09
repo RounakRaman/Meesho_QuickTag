@@ -1,36 +1,34 @@
 import streamlit as st
-from transformers import AutoModelForCausalLM, AutoProcessor
+from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
 from PIL import Image
 import os
+import torch
 
-# Set up the model and processor
-model_id = "microsoft/Phi-3.5-vision-instruct"
-model = AutoModelForCausalLM.from_pretrained(model_id, device_map="cuda", trust_remote_code=True, torch_dtype="auto", _attn_implementation="eager")
-processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True, num_crops=8)
+# Set up a lighter CPU-friendly model and tokenizer
+model_id = "distilbert-base-uncased"
+model = DistilBertForSequenceClassification.from_pretrained(model_id)
+tokenizer = DistilBertTokenizerFast.from_pretrained(model_id)
 
 # Define function for generating attributes
 def generate_attributes(image_path, category, attribute, possible_values):
     # Trim image whitespace if necessary
-    # Implemented as per previous code for whitespace trimming
     image = Image.open(image_path).convert("RGB")
     
     placeholder = "<|image_1|>\n"
-    messages = [{"role": "user", "content": f"{placeholder}. Choose from the following list: {possible_values}. What is the {attribute} of the product in the image (category: {category})? Provide a one-word answer from the list."}]
-    prompt = processor.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    text_prompt = f"{placeholder}. Choose from the following list: {possible_values}. What is the {attribute} of the product in the image (category: {category})? Provide a one-word answer from the list."
 
-    inputs = processor(prompt, image, return_tensors="pt").to("cuda:0")
-    generate_ids = model.generate(**inputs, eos_token_id=processor.tokenizer.eos_token_id, max_new_tokens=1000, temperature=0.0, do_sample=False)
-    generate_ids = generate_ids[:, inputs["input_ids"].shape[1]:]
-    response = processor.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
+    # Tokenize the prompt and process it
+    inputs = tokenizer(text_prompt, return_tensors="pt")
+    with torch.no_grad():
+        outputs = model(**inputs)
+        predicted_index = torch.argmax(outputs.logits, dim=1).item()
+    response = possible_values[predicted_index]  # Simplified response based on prediction
 
     return response
 
 # Streamlit App Setup
 st.title("Meesho QuickTag: Simplifying Product Cataloging for Small Sellers")
-st.write("""
-    Upload your product images below, either one-by-one or by uploading a folder. 
-    
-""")
+st.write("Upload your product images below, either one-by-one or by uploading a folder.")
 
 # Image Upload Options
 uploaded_files = st.file_uploader("Upload Product Images", accept_multiple_files=True, type=["jpg", "jpeg", "png"])
@@ -91,7 +89,6 @@ if uploaded_files:
         "sleeve_styling": ["puff sleeves", "default", "regular sleeves", "unknown", "sleeveless"],
         "surface_styling": ["waist tie-ups", "ruffles", "default", "applique", "unknown", "tie-ups", "knitted"],
     }
-        # Add other categories with attributes...
     }
     
     st.write("Generated Tags (Attributes) for Uploaded Images:")
@@ -100,14 +97,51 @@ if uploaded_files:
         st.image(image, caption=f"Uploaded Image - {uploaded_file.name}")
         
         attribute_tags = []
-        attributes = entity_unit_map[category]  # Get attribute mappings for the selected category
+        attributes = entity_unit_map[category]
         for attribute, possible_values in attributes.items():
             tag = generate_attributes(uploaded_file, category, attribute, possible_values)
             attribute_tags.append(f"#{tag}")
         
-        # Display attributes with hashtags and copy option
         tags_str = " ".join(attribute_tags)
         st.write(f"Tags: {tags_str}")
         st.text_area("Copy these tags for your product", tags_str, key=uploaded_file.name)
-st.write ("Meesho QuickTag will generate attribute tags based on the product's category,helping to avoid cataloging errors and improve visibility on search and recommendation systems.")
+
+st.write("Meesho QuickTag will generate attribute tags based on the product's category, helping to avoid cataloging errors and improve visibility on search and recommendation systems.")
 st.write("Once you have reviewed the tags, copy and use them to improve your product catalog on Meesho!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
