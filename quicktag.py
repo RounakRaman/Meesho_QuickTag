@@ -38,57 +38,62 @@ if uploaded_files:
     category = st.selectbox("Select Product Category", ["Men Tshirts", "Sarees", "Kurtis", "Women Tshirts", "Women Tops & Tunics"])
     entity_unit_map = {
         "Men Tshirts": {
-        "color": ["white", "default", "black", "multicolor"],
-        "neck": ["round","polo"],
-        "pattern": ["solid","printed"],
-        "print_or_pattern_type": ["solid","typography", "default"],
-        "sleeve_length": ["short sleeves", "long sleeves"],
-    },
-    "Sarees": {
-        "blouse_pattern": ["same as saree", "default", "solid", "same as border", "unknown"],
-        "border": ["default", "no border", "solid", "temple border", "woven design", "unknown", "zari"],
-        "border_width": ["unknown", "big border", "small border", "no border"],
-        "color": ["navy blue", "white", "pink", "green", "cream", "yellow", "default", "multicolor", "unknown"],
-        "occasion": ["party", "wedding", "daily", "traditional", "unknown"],
-        "ornamentation": ["tassels and latkans", "unknown", "default", "jacquard"],
-        "pallu_details": ["zari woven", "same as saree", "default", "woven design", "unknown"],
-        "pattern": ["zari woven", "printed", "default", "solid", "woven design", "unknown"],
-        "print_or_pattern_type": ["ethnic motif", "checked", "default", "applique", "floral", "solid", "peacock", "unknown", "botanical", "elephant"],
-        "transparency": ["unknown", "yes", "no"],
-    },
-    "Kurtis": {
-        "color": ["navy blue", "white", "pink", "purple", "orange", "green", "red", "grey", "maroon", "yellow", "black", "multicolor", "blue", "unknown"],
-        "fit_shape": ["straight", "unknown", "a-line"],
-        "length": ["unknown", "knee length", "calf length"],
-        "occasion": ["unknown", "party", "daily"],
-        "ornamentation": ["default", "unknown", "net"],
-        "pattern": ["solid", "unknown", "default"],
-        "print_or_pattern_type": ["solid", "unknown", "default"],
-        "sleeve_length": ["short sleeves", "three-quarter sleeves", "unknown", "sleeveless"],
-        "sleeve_styling": ["regular", "unknown", "sleeveless"],
-    },
-    "Women Tshirts": {
-        "color": ["white", "pink", "yellow", "maroon", "default", "black", "multicolor", "unknown"],
-        "fit_shape": ["regular", "loose", "unknown", "boxy"],
-        "length": ["regular", "long", "unknown", "crop"],
-        "pattern": ["solid", "printed", "unknown", "default"],
-        "print_or_pattern_type": ["funky print", "quirky", "default", "solid", "graphic", "unknown", "typography"],
-        "sleeve_length": ["short sleeves", "long sleeves", "unknown", "default"],
-        "sleeve_styling": ["regular sleeves", "cuffed sleeves", "unknown"],
-        "surface_styling": ["unknown", "default", "applique"],
-    },
-    "Women Tops & Tunics": {
-        "color": ["navy blue", "white", "pink", "peach", "green", "red", "maroon", "yellow", "default", "black", "multicolor", "blue", "unknown"],
-        "fit_shape": ["boxy", "default", "fitted", "regular", "unknown"],
-        "length": ["regular", "crop", "unknown"],
-        "neck_collar": ["stylised", "high", "square neck", "default", "v-neck", "sweetheart neck", "round neck", "unknown"],
-        "occasion": ["unknown", "party", "casual"],
-        "pattern": ["solid", "printed", "unknown", "default"],
-        "print_or_pattern_type": ["quirky", "default", "solid", "floral", "graphic", "unknown", "typography"],
-        "sleeve_length": ["long sleeves", "short sleeves", "three-quarter sleeves", "unknown", "sleeveless"],
-        "sleeve_styling": ["puff sleeves", "default", "regular sleeves", "unknown", "sleeveless"],
-        "surface_styling": ["waist tie-ups", "ruffles", "default", "applique", "unknown", "tie-ups", "knitted"],
-    }
+    "color": ["white", "black", "blue", "green", "yellow", "red", "grey", "maroon", "pink", "purple", "brown", "orange", "cream", "navy blue", "multicolor", "default", "not_available"],
+    "neck": ["round neck", "polo", "v-neck", "henley", "crew neck", "mock neck", "turtle neck", "scoop neck", "mandarin collar", "notch neck", "default", "not_available"],
+    "pattern": ["solid", "striped", "printed", "checked", "colorblocked", "tie-dye", "abstract", "camouflage", "textured", "geometric", "floral", "animal print", "default", "not_available"],
+    "print_or_pattern_type": ["typography", "graphic", "abstract", "floral", "geometric", "camouflage", "solid", "default", "not_available"],
+    "sleeve_length": ["short sleeves", "long sleeves", "three-quarter sleeves", "sleeveless", "cap sleeves", "default", "not_available"],
+},
+
+"Sarees": {
+    "blouse_pattern": ["same as saree", "solid", "printed", "embroidered", "woven design", "default", "not_available"],
+    "border": ["no border", "solid", "zari", "woven design", "temple border", "embroidered", "lace", "gotta patti", "contrast", "default", "not_available"],
+    "border_width": ["big border", "small border", "medium border", "no border", "default", "not_available"],
+    "color": ["navy blue", "white", "pink", "green", "yellow", "red", "orange", "cream", "purple", "maroon", "golden", "silver", "multicolor", "default", "not_available"],
+    "occasion": ["party", "wedding", "festive", "casual", "formal", "traditional", "daily", "default", "not_available"],
+    "ornamentation": ["tassels", "latkans", "zari work", "sequin", "thread work", "stone work", "jacquard", "embroidered", "lace", "default", "not_available"],
+    "pallu_details": ["zari woven", "same as saree", "woven design", "embroidered", "default", "not_available"],
+    "pattern": ["zari woven", "printed", "solid", "woven design", "embroidered", "default", "not_available"],
+    "print_or_pattern_type": ["ethnic motif", "checked", "applique", "floral", "solid", "peacock", "botanical", "elephant", "default", "not_available"],
+    "transparency": ["yes", "no", "default", "not_available"],
+},
+
+"Kurtis": {
+    "color": ["navy blue", "white", "pink", "purple", "orange", "green", "red", "grey", "maroon", "yellow", "black", "multicolor", "blue", "default", "not_available"],
+    "fit_shape": ["straight", "a-line", "default", "not_available"],
+    "length": ["knee length", "calf length", "ankle length", "floor length", "default", "not_available"],
+    "occasion": ["party", "casual", "festive", "formal", "default", "not_available"],
+    "ornamentation": ["embroidered", "mirror work", "sequins", "lace", "thread work", "default", "not_available"],
+    "pattern": ["solid", "printed", "embroidered", "colorblocked", "floral", "abstract", "default", "not_available"],
+    "print_or_pattern_type": ["solid", "floral", "geometric", "ethnic motif", "abstract", "default", "not_available"],
+    "sleeve_length": ["short sleeves", "three-quarter sleeves", "long sleeves", "sleeveless", "cap sleeves", "default", "not_available"],
+    "sleeve_styling": ["regular", "bell sleeves", "flared sleeves", "puff sleeves", "cuffed sleeves", "default", "not_available"],
+},
+
+"Women Tshirts": {
+    "color": ["white", "pink", "yellow", "maroon", "black", "multicolor", "blue", "green", "default", "not_available"],
+    "fit_shape": ["regular", "loose", "boxy", "cropped", "slim", "default", "not_available"],
+    "length": ["regular", "long", "crop", "default", "not_available"],
+    "pattern": ["solid", "printed", "striped", "colorblocked", "tie-dye", "graphic", "default", "not_available"],
+    "print_or_pattern_type": ["funky print", "quirky", "solid", "graphic", "typography", "floral", "default", "not_available"],
+    "sleeve_length": ["short sleeves", "long sleeves", "three-quarter sleeves", "sleeveless", "cap sleeves", "default", "not_available"],
+    "sleeve_styling": ["regular sleeves", "cuffed sleeves", "roll-up sleeves", "puff sleeves", "default", "not_available"],
+    "surface_styling": ["applique", "ruffles", "embroidery", "lace", "default", "not_available"],
+},
+
+"Women Tops & Tunics": {
+    "color": ["navy blue", "white", "pink", "peach", "green", "red", "maroon", "yellow", "black", "multicolor", "blue", "default", "not_available"],
+    "fit_shape": ["boxy", "fitted", "regular", "loose", "default", "not_available"],
+    "length": ["regular", "crop", "longline", "default", "not_available"],
+    "neck_collar": ["stylised", "high neck", "square neck", "v-neck", "sweetheart neck", "round neck", "boat neck", "cowl neck", "collar neck", "default", "not_available"],
+    "occasion": ["casual", "party", "formal", "default", "not_available"],
+    "pattern": ["solid", "printed", "checked", "floral", "striped", "abstract", "default", "not_available"],
+    "print_or_pattern_type": ["quirky", "solid", "floral", "graphic", "abstract", "typography", "default", "not_available"],
+    "sleeve_length": ["long sleeves", "short sleeves", "three-quarter sleeves", "sleeveless", "cap sleeves", "default", "not_available"],
+    "sleeve_styling": ["puff sleeves", "regular sleeves", "cuffed sleeves", "flared sleeves", "default", "not_available"],
+    "surface_styling": ["waist tie-ups", "ruffles", "lace inserts", "embroidery", "knitted", "default", "not_available"],
+}
+
     }
     
     st.write("Generated Tags (Attributes) for Uploaded Images:")
