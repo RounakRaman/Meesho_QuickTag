@@ -107,7 +107,7 @@ if uploaded_files:
             attribute_tags.append(f"{attribute}: #{tag}")
         
         st.write("Tags with Labels for Easy Copying:")
-        st.text_area("Copy Tags Here:", tag_display, height=100, key=uploaded_file.name)
+        st.text_area("Copy Tags Here:", tag_display, height=500, key=uploaded_file.name)
 
 st.write("Meesho QuickTag will generate attribute tags based on the product's category, helping to avoid cataloging errors and improve visibility on search and recommendation systems.")
 st.write("Once you have reviewed the tags, copy and use them to improve your product catalog on Meesho!")
