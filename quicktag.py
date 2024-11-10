@@ -99,9 +99,15 @@ if uploaded_files:
         
         attribute_tags = []
         attributes = entity_unit_map[category]
+        
+        tag_display = ""
         for attribute, possible_values in attributes.items():
             tag = generate_attributes(uploaded_file, category, attribute, possible_values)
-            attribute_tags.append((attribute, tag))
+            tag_display += f"{attribute}: #{tag}\n"
+            attribute_tags.append(f"{attribute}: #{tag}")
         
-        for attribute, tag in attribute_tags:
-            st.write(f"{attribute.capitalize()}: {tag}")
+        st.write("Tags with Labels for Easy Copying:")
+        st.text_area("Copy Tags Here:", tag_display, height=100, key=uploaded_file.name)
+
+st.write("Meesho QuickTag will generate attribute tags based on the product's category, helping to avoid cataloging errors and improve visibility on search and recommendation systems.")
+st.write("Once you have reviewed the tags, copy and use them to improve your product catalog on Meesho!")
